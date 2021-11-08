@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shopify/Screen/Home%20Screen/home_screen.dart';
 import 'package:shopify/Screen/Login%20Screen/Sign%20In%20Screen/sign_in_screen.dart';
 import 'package:shopify/Screen/Login%20Screen/Sign%20Up%20Screen/sign_up_screen.dart';
 import 'package:shopify/Screen/Login%20Screen/components.dart';
@@ -44,7 +45,9 @@ class SignnInbtn extends StatelessWidget {
           ),
         ),
         TextButton.icon(
-          onPressed: () {},
+          onPressed: () {
+            Get.to(HomeScreen());
+          },
           icon: Icon(
             Icons.person_outline_sharp,
             color: white,
