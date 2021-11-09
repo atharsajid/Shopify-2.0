@@ -10,7 +10,9 @@ appbar() {
     backgroundColor: Colors.transparent,
     shadowColor: Colors.transparent,
     foregroundColor: black,
-    title: Expanded(
+    title: Container(
+      alignment: Alignment.center,
+      width: 350,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
