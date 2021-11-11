@@ -56,8 +56,8 @@ List<Products> product = [
   ),
   Products(
     name: "Sony Headphone",
-    price: 329,
+    price: 329.99,
     img: "assets/images/headphone3.png",
-    star: 5,
+    star: 3,
   ),
 ];

@@ -33,21 +33,13 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         child: Column(
           children: [
-            Container(
-              alignment: Alignment.topLeft,
-              margin: EdgeInsets.only(top: 20, left: 20),
-              child: Text(
-                "Chose Brand",
-                style: TextStyle(
-                    color: black.withOpacity(0.75),
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
+            brandandprod("Choose Brand"),
             Container(
               height: 110,
               child: BranName(),
             ),
+            brandandprod("Beats Products"),
+
             ProductCard(),
           ],
         ),

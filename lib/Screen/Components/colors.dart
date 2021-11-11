@@ -19,7 +19,7 @@ List<BoxShadow> boxshadow = [
 List<BoxShadow> boxshadow2 = [
   BoxShadow(
     blurRadius: 10,
-    offset: Offset(0, 0.5),
-    color: Colors.grey.withOpacity(0.4),
+    offset: Offset(0, 0),
+    color: Colors.grey.withOpacity(0.6),
   ),
 ];
