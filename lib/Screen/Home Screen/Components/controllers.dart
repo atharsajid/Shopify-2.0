@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shopify/Screen/Components/colors.dart';
 import 'package:shopify/Screen/Home%20Screen/Models/models.dart';
 
 class BrandNameController extends GetxController {
@@ -27,4 +29,12 @@ class ProductController extends GetxController {
   void fetchproduct() {
     productlist.value = product;
   }
+}
+
+//colot controller
+class FavIconColor extends GetxController {
+
+  var isfavorite = false.obs;
+
+
 }

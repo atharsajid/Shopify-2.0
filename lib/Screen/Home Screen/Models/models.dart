@@ -1,4 +1,6 @@
 //brands Name Model
+import 'package:get/get.dart';
+
 class BrandNameModel {
   String name;
   String img;
@@ -33,6 +35,7 @@ class Products {
     required this.img,
     required this.star,
   });
+  RxBool isfavorite = false.obs;
 }
 
 List<Products> product = [
