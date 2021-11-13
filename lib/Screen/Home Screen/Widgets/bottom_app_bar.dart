@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:shopify/Screen/Cart%20Screen/cart_list_controller.dart';
+import 'package:shopify/Screen/Cart%20Screen/cart_screen.dart';
 import 'package:shopify/Screen/Components/colors.dart';
+import 'package:shopify/Screen/Favorite/favorite_screen.dart';
+import 'package:shopify/Screen/Home%20Screen/home_screen.dart';
+import 'package:shopify/Screen/Home%20Screen/main_home_screen.dart';
+import 'package:shopify/Screen/Ordere/order_screen.dart';
+import 'package:shopify/Screen/Profile/profile_screen.dart';
 
-class Bottomappbar extends StatefulWidget {
-  const Bottomappbar({Key? key}) : super(key: key);
-
-  @override
-  _BottomappbarState createState() => _BottomappbarState();
-}
-
-class _BottomappbarState extends State<Bottomappbar> {
+class Bottomappbar extends StatelessWidget {
+  final indcontroller = Get.find<IndexController>();
   double borderradius = 32;
-  int isiconselected = 0;
+  // int isiconselected = 0;
   int midicon = 2;
 
   @override
@@ -34,60 +36,28 @@ class _BottomappbarState extends State<Bottomappbar> {
             itemBuilder: (context, index) {
               return SizedBox(
                 width: MediaQuery.of(context).size.width * 0.18,
-                child: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      if (isiconselected != midicon) {
-                        isiconselected = index;
-                      } else {
-                        isiconselected = 0;
-                      }
-                    });
+                child: GetBuilder<IndexController>(
+                  builder: (controller) {
+                    return IconButton(
+                      onPressed: () {
+                        controller.currentind != midicon
+                            ? controller.updateindex(index)
+                            : controller.updateindex(0);
+                      },
+                      icon: Icon(
+                        icon[index],
+                        color: midicon == index
+                            ? primary.withOpacity(0.0)
+                            : controller.currentind == index
+                                ? primary
+                                : grey,
+                      ),
+                    );
                   },
-                  icon: Icon(
-                    icon[index],
-                    color: midicon == index
-                        ? primary.withOpacity(0.0)
-                        : isiconselected == index
-                            ? primary
-                            : grey,
-                  ),
                 ),
               );
             },
           ),
-
-          // IconButton(
-          //   onPressed: () {},
-          //   icon: Icon(
-          //     Icons.home,
-          //     color: primary,
-          //   ),
-          // ),
-          // IconButton(
-          //   onPressed: () {},
-          //   icon: Icon(
-          //     Icons.favorite,
-          //     color: primary,
-          //   ),
-          // ),
-          // Container(
-          //   width: 10,
-          // ),
-          // IconButton(
-          //   onPressed: () {},
-          //   icon: Icon(
-          //     Icons.task,
-          //     color: primary,
-          //   ),
-          // ),
-          // IconButton(
-          //   onPressed: () {},
-          //   icon: Icon(
-          //     Icons.home,
-          //     color: primary,
-          //   ),
-          // ),
         ],
       ),
     );
@@ -106,9 +76,19 @@ Widget floatingbutton() {
   return FloatingActionButton(
     backgroundColor: primary,
     foregroundColor: white,
-    onPressed: () {},
+    onPressed: () {
+      
+    },
     child: Icon(
       Icons.shopping_bag_outlined,
     ),
   );
 }
+
+final screens = [
+  MainHomeScree(),
+  FavoriteScreen(),
+  CartScreen(),
+  OrderScreen(),
+  ProfilScreen(),
+];

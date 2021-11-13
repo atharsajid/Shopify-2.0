@@ -1,50 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:shopify/Screen/Cart%20Screen/cart_list_controller.dart';
 import 'package:shopify/Screen/Components/colors.dart';
 import 'package:shopify/Screen/Home%20Screen/Widgets/app_bar_widget.dart';
 import 'package:shopify/Screen/Home%20Screen/Widgets/bottom_app_bar.dart';
-import 'package:shopify/Screen/Home%20Screen/Widgets/brand_name.dart';
+
 import 'package:shopify/Screen/Home%20Screen/Widgets/drawer.dart';
-import 'package:shopify/Screen/Home%20Screen/Widgets/product_card.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
-
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  double borderradius = 32;
-
+class HomeScreen extends StatelessWidget {
+  final indexcontroller = Get.put(
+    IndexController(),
+  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appbar(),
       drawer: drwer(),
-      body: Container(
-        width: double.infinity,
-        margin: EdgeInsets.symmetric(horizontal: 15),
-        decoration: BoxDecoration(
-          color: backgroundgray,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(borderradius),
-            topRight: Radius.circular(borderradius),
-          ),
-        ),
-        child: Column(
-          children: [
-            brandandprod("Choose Brand"),
-            Container(
-              height: 110,
-              child: BranName(),
-            ),
-            brandandprod("Beats Products"),
-
-            ProductCard(),
-          ],
+      body: GetBuilder<IndexController>(builder: (controller) {
+        return screens[controller.currentind];
+      }),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: primary,
+        foregroundColor: white,
+        onPressed: () {
+          indexcontroller.updateindex(2);
+        },
+        child: Icon(
+          Icons.shopping_bag_outlined,
         ),
       ),
-      floatingActionButton: floatingbutton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: Bottomappbar(),
     );

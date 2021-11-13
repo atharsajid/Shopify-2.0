@@ -1,70 +1,90 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shopify/Screen/Components/colors.dart';
+import 'package:shopify/Screen/Components/configration.dart';
 import 'package:shopify/Screen/Detailed%20Screen/controllers.dart';
 import 'package:shopify/Screen/Home%20Screen/Models/models.dart';
 import 'package:shopify/Screen/Home%20Screen/Widgets/app_bar_widget.dart';
 import 'package:shopify/Screen/Home%20Screen/Widgets/product_card.dart';
+import 'package:shopify/Screen/Cart%20Screen/cart_list_controller.dart';
 
 class DetailScreen extends StatelessWidget {
   final Products productlist;
-  const DetailScreen({Key? key, required this.productlist}) : super(key: key);
+  DetailScreen({Key? key, required this.productlist}) : super(key: key);
+  final colorcontroller = Get.put(
+    Colorcontroller(),
+  );
+  final cartcontroller = Get.find<CartController>();
 
   @override
   Widget build(BuildContext context) {
-    final colorcontroller = Get.put(
-      Colorcontroller(),
-    );
     double borderradius = 32;
     return Scaffold(
-      appBar: appbar(),
-      body: Container(
-        width: double.infinity,
-        margin: EdgeInsets.symmetric(horizontal: 15),
-        decoration: boxDecoration(borderradius, backgroundgray),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Container(
-              decoration: decoration(),
-              padding: EdgeInsets.only(top: 30, bottom: 30),
-              child: Column(
-                children: [
-                  Image.asset(
-                    productlist.img,
-                    height: 200,
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(left: 10),
-                    height: 40,
-                    child: star(),
-                  ),
-                  nametxt(productlist.name),
-                  Padding(
-                    padding: EdgeInsets.only(top: 10),
-                  ),
-                  price(),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.only(top: 10, left: 20),
-                width: double.infinity,
-                decoration: boxDecoration(borderradius, white),
+      appBar: detailpageappbar(),
+      body: SingleChildScrollView(
+        child: Container(
+          width: double.infinity,
+          margin: EdgeInsets.symmetric(horizontal: 15),
+          decoration: boxDecoration(borderradius, backgroundgray),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                decoration: decoration(),
+                padding: EdgeInsets.only(top: 30, bottom: 30),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    nametxt("Color"),
+                    Image.asset(
+                      productlist.img,
+                      height: 200,
+                    ),
                     Container(
-                        padding: EdgeInsets.only(top: 5),
-                        height: 50,
-                        child: coloricon()),
+                      padding: EdgeInsets.only(left: 10),
+                      height: 40,
+                      child: star(),
+                    ),
+                    nametxt(productlist.name),
+                    Padding(
+                      padding: EdgeInsets.only(top: 10),
+                    ),
+                    price(),
                   ],
                 ),
               ),
-            ),
-          ],
+              Container(
+                padding: EdgeInsets.only(top: 10, left: 20),
+                width: double.infinity,
+                decoration: boxDecoration(borderradius, white),
+                child: ListView(
+                  shrinkWrap: true,
+                  physics: ScrollPhysics(parent: null),
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        nametxt("Color"),
+                        Container(
+                          padding: EdgeInsets.only(top: 5, bottom: 5),
+                          height: 55,
+                          child: coloricon(),
+                        ),
+                        nametxt("Details"),
+                        Text(
+                          productlist.detail,
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(left: 0),
+                          margin: EdgeInsets.only(top: 20, bottom: 20),
+                          child: twobutton(),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -141,6 +161,7 @@ class DetailScreen extends StatelessWidget {
     );
   }
 
+//color choice button widget
   Widget coloricon() {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
@@ -148,8 +169,9 @@ class DetailScreen extends StatelessWidget {
       physics: NeverScrollableScrollPhysics(),
       itemCount: colorlist.length,
       itemBuilder: (context, index) {
-        return GetBuilder<Colorcontroller>(builder: (controller) {
-          return Container(
+        return GetBuilder<Colorcontroller>(
+          builder: (controller) {
+            return Container(
               margin: EdgeInsets.only(right: 2),
               height: 45,
               width: 45,
@@ -174,9 +196,121 @@ class DetailScreen extends StatelessWidget {
                   Icons.circle,
                   color: colorlist[index],
                 ),
-              ));
-        });
+              ),
+            );
+          },
+        );
       },
+    );
+  }
+
+//add to cart and buy now button widget
+  Widget twobutton() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              minimumSize: Size(150, 50),
+              primary: backgroundgray,
+              onPrimary: Colors.black.withOpacity(0.6),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(32),
+              )),
+          onPressed: () {
+            cartcontroller.addtocart(productlist);
+          },
+          child: Text(
+            "Add to Cart",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              minimumSize: Size(150, 50),
+              primary: primary,
+              onPrimary: white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(32),
+              )),
+          onPressed: () {},
+          child: Text(
+            "Buy Now",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+//appbar widget
+  detailpageappbar() {
+    return AppBar(
+      backgroundColor: Colors.transparent,
+      shadowColor: Colors.transparent,
+      foregroundColor: black,
+      leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: primary,
+          )),
+      title: Container(
+        alignment: Alignment.center,
+        width: 350,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              iconimg,
+              color: primary,
+              scale: 3,
+            ),
+            Text(
+              companyname,
+              style: TextStyle(
+                  fontSize: 24,
+                  color: primary,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 2),
+            ),
+          ],
+        ),
+      ),
+      actions: [
+        GetX<CartController>(
+          builder: (controller) {
+            return Center(
+              child: controller.cartlist.length > 0
+                  ? Text(
+                      controller.cartlist.length.toString(),
+                      style: TextStyle(
+                        color: primary,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  : Container(
+                      width: 0,
+                    ),
+            );
+          },
+        ),
+        IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.shopping_bag_sharp,
+              color: primary,
+            )),
+      ],
     );
   }
 }
