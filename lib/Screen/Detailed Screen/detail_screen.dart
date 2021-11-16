@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:shopify/Screen/Components/colors.dart';
 import 'package:shopify/Screen/Components/configration.dart';
 import 'package:shopify/Screen/Detailed%20Screen/controllers.dart';
+import 'package:shopify/Screen/Home%20Screen/Components/controllers.dart';
 import 'package:shopify/Screen/Home%20Screen/Models/models.dart';
 import 'package:shopify/Screen/Home%20Screen/Widgets/app_bar_widget.dart';
 import 'package:shopify/Screen/Home%20Screen/Widgets/product_card.dart';
@@ -13,10 +14,12 @@ class DetailScreen extends StatelessWidget {
   DetailScreen({Key? key, required this.productlist}) : super(key: key);
   final colorcontroller = Get.find<Colorcontroller>();
   final cartcontroller = Get.find<CartController>();
+  final productcontroller = Get.find<ProductController>();
 
   @override
   Widget build(BuildContext context) {
     double borderradius = 32;
+
     return Scaffold(
       appBar: detailpageappbar(),
       body: SingleChildScrollView(
@@ -204,28 +207,34 @@ class DetailScreen extends StatelessWidget {
 
 //add to cart and buy now button widget
   Widget twobutton() {
+    dynamic carta = productlist.cartAdded;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-              minimumSize: Size(150, 50),
-              primary: backgroundgray,
-              onPrimary: Colors.black.withOpacity(0.6),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(32),
-              )),
-          onPressed: () {
-            cartcontroller.addtocart(productlist);
-          },
-          child: Text(
-            "Add to Cart",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
+        Obx(() {
+          return ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                minimumSize: Size(150, 50),
+                primary: backgroundgray,
+                onPrimary: Colors.black.withOpacity(0.6),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(32),
+                )),
+            onPressed: () {
+              carta.value
+                  ? print(cartcontroller.cartlist)
+                  : cartcontroller.cartlist.add(productlist);
+              productlist.cartAdded.toggle();
+            },
+            child: Text(
+              carta.value ? "Added to Cart" : "Add to Cart",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-        ),
+          );
+        }),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
               minimumSize: Size(150, 50),

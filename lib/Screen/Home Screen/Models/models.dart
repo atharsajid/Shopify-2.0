@@ -30,6 +30,7 @@ class Products {
   String img;
   int star;
   String detail;
+
   Products(
       {required this.name,
       required this.price,
@@ -37,6 +38,8 @@ class Products {
       required this.star,
       required this.detail});
   RxBool isfavorite = false.obs;
+  RxBool cartAdded = false.obs;
+  RxInt quantity = 1.obs;
 }
 
 List<Products> product = [

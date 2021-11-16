@@ -9,11 +9,11 @@ class CartController extends GetxController {
   }
 
   //quantiy in cart
-  var quantity = 1;
-  quantityupdate(int q) {
-    quantity = q;
-    update();
-  }
+  // var quantity = 1;
+  // quantityupdate(int q) {
+  //   quantity = q;
+  //   update();
+  // }
 }
 
 class IndexController extends GetxController {

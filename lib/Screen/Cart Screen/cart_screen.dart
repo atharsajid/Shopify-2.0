@@ -73,34 +73,7 @@ class CartScreen extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                Row(
-                                  children: [
-                                    txtbold("Quantity", 20),
-                                    IconButton(
-                                      onPressed: () {
-                                        if (cartcontroller.quantity > 1) {
-                                          cartcontroller.quantityupdate(
-                                              cartcontroller.quantity - 1);
-                                        } else {
-                                          cartcontroller.quantityupdate(1);
-                                        }
-                                      },
-                                      icon: Icon(Icons.remove),
-                                    ),
-                                    GetBuilder<CartController>(
-                                        builder: (controller) {
-                                      return txtbold(
-                                          controller.quantity.toString(), 20);
-                                    }),
-                                    IconButton(
-                                      onPressed: () {
-                                        cartcontroller.quantityupdate(
-                                            cartcontroller.quantity + 1);
-                                      },
-                                      icon: Icon(Icons.add),
-                                    ),
-                                  ],
-                                ),
+                                quantityfunction(index),
                               ],
                             ),
                           ),
@@ -116,6 +89,42 @@ class CartScreen extends StatelessWidget {
       ),
     );
   }
+
+//quantity function widget
+  Row quantityfunction(int index) {
+    return Row(
+      children: [
+        txtbold("Quantity", 20),
+        IconButton(
+          onPressed: () {
+            if (cartcontroller.cartlist[index].quantity > 1) {
+              cartcontroller.cartlist[index].quantity =
+                  cartcontroller.cartlist[index].quantity - 1;
+            } else {}
+          },
+          icon: Icon(Icons.remove),
+        ),
+        GetBuilder<CartController>(
+          builder: (controller) {
+            return GetX<CartController>(
+              builder: (controller) {
+                return txtbold(
+                    controller.cartlist[index].quantity.toString(), 20);
+              },
+            );
+          },
+        ),
+        IconButton(
+          onPressed: () {
+            cartcontroller.cartlist[index].quantity =
+                cartcontroller.cartlist[index].quantity + 1;
+          },
+          icon: Icon(Icons.add),
+        ),
+      ],
+    );
+  }
+
 //bill container widget
   Widget totalbill() {
     return Container(
@@ -193,7 +202,8 @@ class CartScreen extends StatelessWidget {
       ),
     );
   }
-//text widegt 
+
+//text widegt
   final totaltext = TextStyle(
     color: white,
     fontSize: 18,
