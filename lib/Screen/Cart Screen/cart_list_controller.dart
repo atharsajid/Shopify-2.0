@@ -7,6 +7,13 @@ class CartController extends GetxController {
   addtocart(Products product) {
     cartlist.add(product);
   }
+
+  //quantiy in cart
+  var quantity = 1;
+  quantityupdate(int q) {
+    quantity = q;
+    update();
+  }
 }
 
 class IndexController extends GetxController {

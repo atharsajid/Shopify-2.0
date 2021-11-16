@@ -11,6 +11,7 @@ import 'package:shopify/Screen/Profile/profile_screen.dart';
 
 class Bottomappbar extends StatelessWidget {
   final indcontroller = Get.find<IndexController>();
+
   double borderradius = 32;
   // int isiconselected = 0;
   int midicon = 2;
@@ -40,9 +41,7 @@ class Bottomappbar extends StatelessWidget {
                   builder: (controller) {
                     return IconButton(
                       onPressed: () {
-                        controller.currentind != midicon
-                            ? controller.updateindex(index)
-                            : controller.updateindex(0);
+                        controller.updateindex(index);
                       },
                       icon: Icon(
                         icon[index],
@@ -76,9 +75,7 @@ Widget floatingbutton() {
   return FloatingActionButton(
     backgroundColor: primary,
     foregroundColor: white,
-    onPressed: () {
-      
-    },
+    onPressed: () {},
     child: Icon(
       Icons.shopping_bag_outlined,
     ),

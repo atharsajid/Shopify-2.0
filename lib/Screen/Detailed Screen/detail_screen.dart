@@ -11,9 +11,7 @@ import 'package:shopify/Screen/Cart%20Screen/cart_list_controller.dart';
 class DetailScreen extends StatelessWidget {
   final Products productlist;
   DetailScreen({Key? key, required this.productlist}) : super(key: key);
-  final colorcontroller = Get.put(
-    Colorcontroller(),
-  );
+  final colorcontroller = Get.find<Colorcontroller>();
   final cartcontroller = Get.find<CartController>();
 
   @override

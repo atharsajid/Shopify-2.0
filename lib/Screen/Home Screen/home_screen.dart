@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shopify/Screen/Cart%20Screen/cart_list_controller.dart';
 import 'package:shopify/Screen/Components/colors.dart';
+import 'package:shopify/Screen/Detailed%20Screen/controllers.dart';
 import 'package:shopify/Screen/Home%20Screen/Widgets/app_bar_widget.dart';
 import 'package:shopify/Screen/Home%20Screen/Widgets/bottom_app_bar.dart';
 
 import 'package:shopify/Screen/Home%20Screen/Widgets/drawer.dart';
 
+import 'main_home_screen.dart';
+
 class HomeScreen extends StatelessWidget {
+  final colorcontroller = Get.put(
+    Colorcontroller(),
+  );
   final indexcontroller = Get.put(
     IndexController(),
   );
@@ -16,9 +22,11 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: appbar(),
       drawer: drwer(),
-      body: GetBuilder<IndexController>(builder: (controller) {
-        return screens[controller.currentind];
-      }),
+      body: GetBuilder<IndexController>(
+        builder: (controller) {
+          return screens[controller.currentind];
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: primary,
         foregroundColor: white,

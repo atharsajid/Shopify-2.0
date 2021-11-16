@@ -33,7 +33,7 @@ class SignnInbtn extends StatelessWidget {
         OutlinedButton.icon(
           style: signbtn,
           onPressed: () {
-            Get.to(SignUp());
+            // Get.to(SignUp());
           },
           icon: Icon(
             Icons.person,
