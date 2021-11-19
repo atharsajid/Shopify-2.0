@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shopify/Screen/Components/colors.dart';
 import 'package:shopify/Screen/Detailed%20Screen/detail_screen.dart';
+import 'package:shopify/Screen/Favorite/controller.dart';
 import 'package:shopify/Screen/Home%20Screen/Components/controllers.dart';
 import 'package:shopify/Screen/Home%20Screen/Models/models.dart';
 
@@ -14,6 +15,7 @@ class ProductCard extends StatefulWidget {
 
 class _ProductCardState extends State<ProductCard> {
   final productcontroller = Get.put(ProductController());
+  final favaritecontroller = Get.put(FavoriteController());
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +66,7 @@ class ProductItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productlist = Get.find<ProductController>();
+    final favoritecontroller = Get.find<FavoriteController>();
     return GestureDetector(
       onTap: press,
       child: Container(
@@ -117,10 +120,15 @@ class ProductItemCard extends StatelessWidget {
                   return IconButton(
                     onPressed: () {
                       controller.productlist[index].isfavorite.toggle();
+                      isselect.value
+                          ? favoritecontroller.favoritelist.add(productitem)
+                          : favoritecontroller.favoritelist.remove(productitem);
                     },
                     icon: Icon(
                       Icons.favorite,
-                      color: isselect.value ? Colors.red : grey,
+                      color: controller.productlist[index].isfavorite.value
+                          ? Colors.red
+                          : grey,
                     ),
                   );
                 },

@@ -8,13 +8,14 @@ import 'package:shopify/Screen/Home%20Screen/Models/models.dart';
 import 'package:shopify/Screen/Home%20Screen/Widgets/app_bar_widget.dart';
 import 'package:shopify/Screen/Home%20Screen/Widgets/product_card.dart';
 import 'package:shopify/Screen/Cart%20Screen/cart_list_controller.dart';
+import 'package:shopify/Screen/Home%20Screen/home_screen.dart';
 
 class DetailScreen extends StatelessWidget {
   final Products productlist;
   DetailScreen({Key? key, required this.productlist}) : super(key: key);
   final colorcontroller = Get.find<Colorcontroller>();
   final cartcontroller = Get.find<CartController>();
-  final productcontroller = Get.find<ProductController>();
+  final indexcontroller = Get.find<IndexController>();
 
   @override
   Widget build(BuildContext context) {
@@ -207,34 +208,43 @@ class DetailScreen extends StatelessWidget {
 
 //add to cart and buy now button widget
   Widget twobutton() {
-    dynamic carta = productlist.cartAdded;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Obx(() {
-          return ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                minimumSize: Size(150, 50),
-                primary: backgroundgray,
-                onPrimary: Colors.black.withOpacity(0.6),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(32),
-                )),
-            onPressed: () {
-              carta.value
-                  ? print(cartcontroller.cartlist)
-                  : cartcontroller.cartlist.add(productlist);
-              productlist.cartAdded.toggle();
-            },
-            child: Text(
-              carta.value ? "Added to Cart" : "Add to Cart",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              minimumSize: Size(150, 50),
+              primary: backgroundgray,
+              onPrimary: Colors.black.withOpacity(0.6),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(32),
+              )),
+          onPressed: () {
+            productlist.cartAdded.value
+                ? print(cartcontroller.cartlist)
+                : cartcontroller.cartlist.add(productlist);
+            productlist.cartAdded.value
+                ? Get.snackbar(
+                    "Already in Cart",
+                    "This item has already in your cart",
+                    snackPosition: SnackPosition.BOTTOM
+                  )
+                : Get.snackbar(
+                    "Added in Cart",
+                    "This item is added in your cart",
+                    snackPosition: SnackPosition.BOTTOM
+                  );
+
+            productlist.cartAdded = true.obs;
+          },
+          child: Text(
+            "Add to Cart",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
             ),
-          );
-        }),
+          ),
+        ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
               minimumSize: Size(150, 50),
@@ -312,7 +322,12 @@ class DetailScreen extends StatelessWidget {
           },
         ),
         IconButton(
-            onPressed: () {},
+            onPressed: () {
+              indexcontroller.updateindex(2);
+              Get.to(
+                HomeScreen(),
+              );
+            },
             icon: Icon(
               Icons.shopping_bag_sharp,
               color: primary,

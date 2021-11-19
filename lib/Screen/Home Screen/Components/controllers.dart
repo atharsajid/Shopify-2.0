@@ -16,7 +16,7 @@ class BrandNameController extends GetxController {
     brandnamelist.value = brandName;
   }
 }
-
+//main product controller
 class ProductController extends GetxController {
   var productlist = <Products>[].obs;
 
@@ -38,3 +38,4 @@ class FavIconColor extends GetxController {
 
 
 }
+
