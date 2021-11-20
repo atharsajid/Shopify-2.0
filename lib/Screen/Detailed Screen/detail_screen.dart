@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:shopify/Screen/Components/colors.dart';
 import 'package:shopify/Screen/Components/configration.dart';
 import 'package:shopify/Screen/Detailed%20Screen/controllers.dart';
-import 'package:shopify/Screen/Home%20Screen/Components/controllers.dart';
+
 import 'package:shopify/Screen/Home%20Screen/Models/models.dart';
 import 'package:shopify/Screen/Home%20Screen/Widgets/app_bar_widget.dart';
 import 'package:shopify/Screen/Home%20Screen/Widgets/product_card.dart';
@@ -14,7 +14,7 @@ class DetailScreen extends StatelessWidget {
   final Products productlist;
   DetailScreen({Key? key, required this.productlist}) : super(key: key);
   final colorcontroller = Get.find<Colorcontroller>();
-  final cartcontroller = Get.find<CartController>();
+  final cartcontroller = Get.put(CartController());
   final indexcontroller = Get.find<IndexController>();
 
   @override
@@ -223,18 +223,15 @@ class DetailScreen extends StatelessWidget {
             productlist.cartAdded.value
                 ? print(cartcontroller.cartlist)
                 : cartcontroller.cartlist.add(productlist);
+
             productlist.cartAdded.value
                 ? Get.snackbar(
-                    "Already in Cart",
-                    "This item has already in your cart",
-                    snackPosition: SnackPosition.BOTTOM
-                  )
+                    "Already in Cart", "This item has already in your cart",
+                    snackPosition: SnackPosition.BOTTOM)
                 : Get.snackbar(
-                    "Added in Cart",
-                    "This item is added in your cart",
-                    snackPosition: SnackPosition.BOTTOM
-                  );
-
+                    "Added in Cart", "This item is added in your cart",
+                    snackPosition: SnackPosition.BOTTOM);
+            cartcontroller.subtotalupdate();
             productlist.cartAdded = true.obs;
           },
           child: Text(

@@ -3,17 +3,29 @@ import 'package:get/get.dart';
 import 'package:shopify/Screen/Cart%20Screen/cart_list_controller.dart';
 import 'package:shopify/Screen/Components/colors.dart';
 import 'package:shopify/Screen/Detailed%20Screen/controllers.dart';
-import 'package:shopify/Screen/Detailed%20Screen/detail_screen.dart';
+import 'package:shopify/Screen/Home%20Screen/Components/controllers.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
+  const CartScreen({Key? key}) : super(key: key);
+
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
   final cartcontroller = Get.find<CartController>();
+
   final colorcontroller = Get.find<Colorcontroller>();
+
+  final productcontroller = Get.put(ProductController());
+
   double borderradius = 32;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        width: double.infinity,
+        height: MediaQuery.of(context).size.height * 0.9,
         margin: EdgeInsets.symmetric(horizontal: 15),
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
@@ -23,109 +35,170 @@ class CartScreen extends StatelessWidget {
             topRight: Radius.circular(borderradius),
           ),
         ),
-        child: Column(
-          children: [
-            totalbill(),
-            Expanded(
-              child: ListView.builder(
-                itemCount: cartcontroller.cartlist.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    margin: EdgeInsets.only(bottom: 10),
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: white,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: boxshadow,
-                    ),
-                    child: Row(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              totalbill(),
+              Container(
+                margin: EdgeInsets.only(bottom: 10),
+                child: GetX<CartController>(builder: (controller) {
+                  return txtbold(
+                      "${cartcontroller.cartlist.length} items available in your Cart",
+                      18);
+                }),
+              ),
+              Obx(
+                () => ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: cartcontroller.cartlist.length,
+                  itemBuilder: (contex, index) {
+                    return Stack(
                       children: [
-                        Expanded(
-                          flex: 1,
-                          child: Container(
-                            height: 100,
-                            child:
-                                Image.asset(cartcontroller.cartlist[index].img),
+                        Container(
+                          margin: EdgeInsets.only(bottom: 15),
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(16),
+                            boxShadow: boxshadow,
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Container(
+                                  height: 100,
+                                  child: Image.asset(
+                                      cartcontroller.cartlist[index].img),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Container(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      txtbold(
+                                        cartcontroller.cartlist[index].name,
+                                        20,
+                                      ),
+                                      txtboldcolor(
+                                        "\$${cartcontroller.cartlist[index].price}",
+                                        22,
+                                        primary,
+                                      ),
+                                      Row(
+                                        children: [
+                                          txtbold("Color : ", 18),
+                                          Icon(
+                                            Icons.circle,
+                                            color: Colors.orange,
+                                            size: 18,
+                                          ),
+                                        ],
+                                      ),
+                                      quantityfunction(index),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        Expanded(
-                          flex: 2,
-                          child: Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                txtbold(
-                                  cartcontroller.cartlist[index].name,
-                                  20,
-                                ),
-                                txtboldcolor(
-                                  "\$${cartcontroller.cartlist[index].price}",
-                                  22,
-                                  primary,
-                                ),
-                                Row(
-                                  children: [
-                                    txtbold("Color : ", 18),
-                                    Icon(
-                                      Icons.circle,
-                                      color: Colors.orange,
-                                      size: 18,
-                                    ),
-                                  ],
-                                ),
-                                quantityfunction(index),
-                              ],
+                        Align(
+                          alignment: Alignment(1, -1),
+                          child: IconButton(
+                            onPressed: () {
+                              cartcontroller.cartlist.removeAt(index);
+                              productcontroller.productlist[index].cartAdded =
+                                  false.obs;
+                              cartcontroller.subtotalupdate();
+                            },
+                            icon: Icon(
+                              Icons.delete,
+                              color: grey,
                             ),
                           ),
-                        )
+                        ),
                       ],
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
+              Obx(
+                () => cartcontroller.cartlist.isNotEmpty
+                    ? Container(
+                        alignment: Alignment.topRight,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              minimumSize: Size(150, 50),
+                              primary: primary,
+                              onPrimary: white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(32),
+                              )),
+                          onPressed: () {},
+                          child: Text(
+                            "Place Order",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      )
+                    : Container(
+                        width: 0,
+                      ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-//quantity function widget
+//quantity widget
   Row quantityfunction(int index) {
     return Row(
       children: [
         txtbold("Quantity", 20),
         IconButton(
           onPressed: () {
+            // if (cartcontroller.cartlist[index].quantity > 1) {
+            //   cartcontroller.cartlist[index].quantity =
+            //       cartcontroller.cartlist[index].quantity - 1;
+            // } else {}
             if (cartcontroller.cartlist[index].quantity > 1) {
-              cartcontroller.cartlist[index].quantity =
-                  cartcontroller.cartlist[index].quantity - 1;
+              cartcontroller.quantitydecrease(index);
+              cartcontroller.subtotalupdate();
             } else {}
           },
           icon: Icon(Icons.remove),
         ),
         GetBuilder<CartController>(
           builder: (controller) {
-            return GetX<CartController>(
-              builder: (controller) {
-                return txtbold(
-                    controller.cartlist[index].quantity.toString(), 20);
-              },
-            );
+            return txtbold(controller.cartlist[index].quantity.toString(), 20);
           },
         ),
-        IconButton(
-          onPressed: () {
-            cartcontroller.cartlist[index].quantity =
-                cartcontroller.cartlist[index].quantity + 1;
+        GetBuilder<CartController>(
+          builder: (controller) {
+            return IconButton(
+              onPressed: () {
+                controller.quantityupdate(index);
+                controller.subtotalupdate();
+              },
+              icon: Icon(Icons.add),
+            );
           },
-          icon: Icon(Icons.add),
         ),
       ],
     );
   }
 
-//bill container widget
+//pricing widget
   Widget totalbill() {
     return Container(
       height: 200,
@@ -147,10 +220,12 @@ class CartScreen extends StatelessWidget {
                 "Sub-Total",
                 style: totaltext,
               ),
-              Text(
-                "0",
-                style: totaltext,
-              ),
+              GetBuilder<CartController>(builder: (controller) {
+                return Text(
+                  "\$${cartcontroller.subtotal}",
+                  style: totaltext,
+                );
+              }),
             ],
           ),
           Row(
@@ -160,23 +235,27 @@ class CartScreen extends StatelessWidget {
                 "Delivey Fee",
                 style: totaltext,
               ),
-              Text(
-                "0",
-                style: totaltext,
-              ),
+              GetBuilder<CartController>(builder: (controller) {
+                return Text(
+                  "\$${cartcontroller.delivery}",
+                  style: totaltext,
+                );
+              }),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Discount",
+                "Discount ${cartcontroller.discount}%",
                 style: totaltext,
               ),
-              Text(
-                "0",
-                style: totaltext,
-              ),
+              GetBuilder<CartController>(builder: (controller) {
+                return Text(
+                  "-${cartcontroller.discountprice.toStringAsFixed(2)}",
+                  style: totaltext,
+                );
+              }),
             ],
           ),
           Divider(
@@ -192,10 +271,12 @@ class CartScreen extends StatelessWidget {
                 "Total Price",
                 style: totaltext,
               ),
-              Text(
-                "0",
-                style: totaltext,
-              ),
+              GetBuilder<CartController>(builder: (controller) {
+                return Text(
+                  "\$${cartcontroller.total.toStringAsFixed(2)}",
+                  style: totaltext,
+                );
+              }),
             ],
           ),
         ],
@@ -203,11 +284,11 @@ class CartScreen extends StatelessWidget {
     );
   }
 
-//text widegt
   final totaltext = TextStyle(
     color: white,
     fontSize: 18,
   );
+
   Widget txt(String text, double fontsize) {
     return Text(
       text,

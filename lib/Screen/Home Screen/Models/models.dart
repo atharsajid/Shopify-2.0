@@ -39,7 +39,7 @@ class Products {
       required this.detail});
   RxBool isfavorite = false.obs;
   RxBool cartAdded = false.obs;
-  RxInt quantity = 1.obs;
+  num quantity = 1;
 }
 
 List<Products> product = [
