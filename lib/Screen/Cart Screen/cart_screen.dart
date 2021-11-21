@@ -4,6 +4,8 @@ import 'package:shopify/Screen/Cart%20Screen/cart_list_controller.dart';
 import 'package:shopify/Screen/Components/colors.dart';
 import 'package:shopify/Screen/Detailed%20Screen/controllers.dart';
 import 'package:shopify/Screen/Home%20Screen/Components/controllers.dart';
+import 'package:shopify/Screen/Ordere/order_controller.dart';
+import 'package:shopify/Screen/Splash%20Screen/splash_screen.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -16,8 +18,10 @@ class _CartScreenState extends State<CartScreen> {
   final cartcontroller = Get.find<CartController>();
 
   final colorcontroller = Get.find<Colorcontroller>();
+  final indexcontroller = Get.find<IndexController>();
 
   final productcontroller = Get.put(ProductController());
+  final ordercontroller = Get.put(OrderController());
 
   double borderradius = 32;
 
@@ -139,7 +143,13 @@ class _CartScreenState extends State<CartScreen> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(32),
                               )),
-                          onPressed: () {},
+                          onPressed: () {
+                            ordercontroller.orderlist
+                                .addAll(cartcontroller.cartlist);
+                            indexcontroller.updateindex(3);
+                            cartcontroller.subtotalupdate();
+                            Get.to(SplashScreen());
+                          },
                           child: Text(
                             "Place Order",
                             style: TextStyle(
