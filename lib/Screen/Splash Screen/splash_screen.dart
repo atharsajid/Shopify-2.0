@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shopify/Screen/Cart%20Screen/cart_list_controller.dart';
 import 'package:shopify/Screen/Components/colors.dart';
 import 'package:shopify/Screen/Home%20Screen/home_screen.dart';
 
@@ -17,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 3), () => Get.to(HomeScreen()));
+    Timer(const Duration(seconds: 3), () => Get.to(HomeScreen()));
   }
 
   @override

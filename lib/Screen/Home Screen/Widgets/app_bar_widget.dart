@@ -49,7 +49,7 @@ appbar() {
 Container brandandprod(String name) {
   return Container(
     alignment: Alignment.topLeft,
-    margin: EdgeInsets.only(top: 10, left: 20),
+    margin: const EdgeInsets.only(top: 10, left: 20),
     child: Text(
       name,
       style: TextStyle(

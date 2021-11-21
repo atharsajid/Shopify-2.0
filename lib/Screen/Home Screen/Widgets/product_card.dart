@@ -21,8 +21,8 @@ class _ProductCardState extends State<ProductCard> {
   Widget build(BuildContext context) {
     return Expanded(
       child: GridView.builder(
-        padding: EdgeInsets.all(10),
-        physics: ScrollPhysics(parent: null),
+        padding: const EdgeInsets.all(10),
+        physics: const ScrollPhysics(parent: null),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisSpacing: 30,
           mainAxisSpacing: 30,
@@ -77,7 +77,7 @@ class ProductItemCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: EdgeInsets.only(top: 20),
+                  padding: const EdgeInsets.only(top: 20),
                   alignment: Alignment.topCenter,
                   child: Image.asset(
                     productitem.img,
@@ -85,7 +85,7 @@ class ProductItemCard extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 15, left: 10),
+                  padding: const EdgeInsets.only(top: 15, left: 10),
                   child: Text(
                     productitem.name,
                     textAlign: TextAlign.start,
@@ -96,7 +96,7 @@ class ProductItemCard extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 5, left: 10),
+                  padding: const EdgeInsets.only(top: 5, left: 10),
                   child: Text(
                     "\$${productitem.price}",
                     textAlign: TextAlign.start,
@@ -108,13 +108,13 @@ class ProductItemCard extends StatelessWidget {
                   ),
                 ),
                 Container(
-                    padding: EdgeInsets.only(left: 10),
+                    padding: const EdgeInsets.only(left: 10),
                     height: 30,
                     child: star()),
               ],
             ),
             Align(
-              alignment: Alignment(1, -1),
+              alignment: const Alignment(1, -1),
               child: GetX<ProductController>(
                 builder: (controller) {
                   return IconButton(
@@ -144,7 +144,7 @@ class ProductItemCard extends StatelessWidget {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: 5,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (context, index) {
         return Row(

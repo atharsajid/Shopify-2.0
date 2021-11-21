@@ -7,10 +7,6 @@ import 'package:shopify/Screen/Drawer/drawer.dart';
 import 'package:shopify/Screen/Home%20Screen/Widgets/app_bar_widget.dart';
 import 'package:shopify/Screen/Home%20Screen/Widgets/bottom_app_bar.dart';
 
-import 'package:shopify/Screen/Home%20Screen/Widgets/drawer.dart';
-
-import 'main_home_screen.dart';
-
 class HomeScreen extends StatelessWidget {
   final colorcontroller = Get.put(
     Colorcontroller(),
@@ -18,6 +14,8 @@ class HomeScreen extends StatelessWidget {
   final indexcontroller = Get.put(
     IndexController(),
   );
+
+  HomeScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +32,7 @@ class HomeScreen extends StatelessWidget {
         onPressed: () {
           indexcontroller.updateindex(2);
         },
-        child: Icon(
+        child: const Icon(
           Icons.shopping_bag_outlined,
         ),
       ),

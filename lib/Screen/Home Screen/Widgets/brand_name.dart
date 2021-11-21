@@ -33,7 +33,7 @@ class _BranNameState extends State<BranName> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: 20, left: 25, bottom: 10),
+                      margin: const EdgeInsets.only(top: 20, left: 25, bottom: 10),
                       decoration: BoxDecoration(
                         color: white,
                         borderRadius: BorderRadius.circular(15),
@@ -48,7 +48,7 @@ class _BranNameState extends State<BranName> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: 20),
+                      margin: const EdgeInsets.only(left: 20),
                       alignment: Alignment.center,
                       height: 3,
                       width: 80,

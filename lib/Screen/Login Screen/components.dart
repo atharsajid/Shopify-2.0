@@ -14,9 +14,9 @@ final signbtntxt = TextStyle(
 final signbtn = OutlinedButton.styleFrom(
     backgroundColor: Colors.transparent,
     side: BorderSide(color: white, width: 2),
-    minimumSize: Size(200, 60),
+    minimumSize: const Size(200, 60),
     primary: white,
-    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(32),
     ));
@@ -30,7 +30,7 @@ final outlinein = OutlineInputBorder(
 //background image widget
 final backgroundimage = BoxDecoration(
   image: DecorationImage(
-    image: AssetImage("assets/images/11.jpg"),
+    image: const AssetImage("assets/images/11.jpg"),
     fit: BoxFit.cover,
     colorFilter:
         ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.darken),

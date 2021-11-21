@@ -4,7 +4,6 @@ import 'package:shopify/Screen/Cart%20Screen/cart_list_controller.dart';
 import 'package:shopify/Screen/Cart%20Screen/cart_screen.dart';
 import 'package:shopify/Screen/Components/colors.dart';
 import 'package:shopify/Screen/Favorite/favorite_screen.dart';
-import 'package:shopify/Screen/Home%20Screen/home_screen.dart';
 import 'package:shopify/Screen/Home%20Screen/main_home_screen.dart';
 import 'package:shopify/Screen/Ordere/order_screen.dart';
 import 'package:shopify/Screen/Profile/profile_screen.dart';
@@ -15,6 +14,8 @@ class Bottomappbar extends StatelessWidget {
   double borderradius = 32;
   // int isiconselected = 0;
   int midicon = 2;
+
+  Bottomappbar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +77,7 @@ Widget floatingbutton() {
     backgroundColor: primary,
     foregroundColor: white,
     onPressed: () {},
-    child: Icon(
+    child: const Icon(
       Icons.shopping_bag_outlined,
     ),
   );
@@ -85,7 +86,7 @@ Widget floatingbutton() {
 final screens = [
   MainHomeScree(),
   FavoriteScreen(),
-  CartScreen(),
+  const CartScreen(),
   OrderScreen(),
-  ProfilScreen(),
+  const ProfilScreen(),
 ];

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 //Application name icon and slogan
 String name = "Shopify";

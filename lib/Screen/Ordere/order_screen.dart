@@ -16,8 +16,8 @@ class OrderScreen extends StatelessWidget {
     return Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height * 0.9,
-        margin: EdgeInsets.symmetric(horizontal: 15),
-        padding: EdgeInsets.all(10),
+        margin: const EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: backgroundgray,
           borderRadius: BorderRadius.only(
@@ -37,7 +37,7 @@ class OrderScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(borderradius),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -55,8 +55,8 @@ class OrderScreen extends StatelessWidget {
                   ),
                   Expanded(
                     child: Container(
-                      margin: EdgeInsets.only(top: 10),
-                      padding: EdgeInsets.all(15),
+                      margin: const EdgeInsets.only(top: 10),
+                      padding: const EdgeInsets.all(15),
                       width: double.infinity,
                       decoration: BoxDecoration(
                         boxShadow: boxshadow,
@@ -69,10 +69,10 @@ class OrderScreen extends StatelessWidget {
                           children: [
                             textbold("Order Detail:", 20, black),
                             Container(
-                                margin: EdgeInsets.only(top: 10),
+                                margin: const EdgeInsets.only(top: 10),
                                 child: divider()),
                             ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
+                              physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               itemCount: ordercontroller.orderlist.length,
                               itemBuilder: (context, index) {
@@ -95,7 +95,7 @@ class OrderScreen extends StatelessWidget {
                             ),
                             divider(),
                             Container(
-                              margin: EdgeInsets.all(10),
+                              margin: const EdgeInsets.all(10),
                               child: Column(
                                 children: [
                                   Row(
@@ -131,14 +131,14 @@ class OrderScreen extends StatelessWidget {
                                           18,
                                           black),
                                       text(
-                                        "\$${cartcontroller.discountprice}",
+                                        "\$${cartcontroller.discountprice.toStringAsFixed(2)}",
                                         18,
                                         black,
                                       ),
                                     ],
                                   ),
                                   Container(
-                                      margin: EdgeInsets.all(5),
+                                      margin: const EdgeInsets.all(5),
                                       child: divider()),
                                   Row(
                                     mainAxisAlignment:
@@ -146,7 +146,7 @@ class OrderScreen extends StatelessWidget {
                                     children: [
                                       textbold("Total Price", 20, black),
                                       textbold(
-                                        "\$${cartcontroller.totalprice}",
+                                        "\$${cartcontroller.totalprice.toStringAsFixed(2)}",
                                         20,
                                         black,
                                       ),
@@ -166,7 +166,7 @@ class OrderScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       "You have not placed any order yet",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),

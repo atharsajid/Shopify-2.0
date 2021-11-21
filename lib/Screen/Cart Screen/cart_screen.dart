@@ -30,8 +30,8 @@ class _CartScreenState extends State<CartScreen> {
     return Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height * 0.9,
-        margin: EdgeInsets.symmetric(horizontal: 15),
-        padding: EdgeInsets.all(10),
+        margin: const EdgeInsets.symmetric(horizontal: 15),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: backgroundgray,
           borderRadius: BorderRadius.only(
@@ -44,7 +44,7 @@ class _CartScreenState extends State<CartScreen> {
             children: [
               totalbill(),
               Container(
-                margin: EdgeInsets.only(bottom: 10),
+                margin: const EdgeInsets.only(bottom: 10),
                 child: GetX<CartController>(builder: (controller) {
                   return txtbold(
                       "${cartcontroller.cartlist.length} items available in your Cart",
@@ -54,14 +54,14 @@ class _CartScreenState extends State<CartScreen> {
               Obx(
                 () => ListView.builder(
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   itemCount: cartcontroller.cartlist.length,
                   itemBuilder: (contex, index) {
                     return Stack(
                       children: [
                         Container(
-                          margin: EdgeInsets.only(bottom: 15),
-                          padding: EdgeInsets.all(10),
+                          margin: const EdgeInsets.only(bottom: 15),
+                          padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(16),
@@ -71,7 +71,7 @@ class _CartScreenState extends State<CartScreen> {
                             children: [
                               Expanded(
                                 flex: 1,
-                                child: Container(
+                                child: SizedBox(
                                   height: 100,
                                   child: Image.asset(
                                       cartcontroller.cartlist[index].img),
@@ -79,40 +79,38 @@ class _CartScreenState extends State<CartScreen> {
                               ),
                               Expanded(
                                 flex: 2,
-                                child: Container(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      txtbold(
-                                        cartcontroller.cartlist[index].name,
-                                        20,
-                                      ),
-                                      txtboldcolor(
-                                        "\$${cartcontroller.cartlist[index].price}",
-                                        22,
-                                        primary,
-                                      ),
-                                      Row(
-                                        children: [
-                                          txtbold("Color : ", 18),
-                                          Icon(
-                                            Icons.circle,
-                                            color: Colors.orange,
-                                            size: 18,
-                                          ),
-                                        ],
-                                      ),
-                                      quantityfunction(index),
-                                    ],
-                                  ),
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  children: [
+                                    txtbold(
+                                      cartcontroller.cartlist[index].name,
+                                      20,
+                                    ),
+                                    txtboldcolor(
+                                      "\$${cartcontroller.cartlist[index].price}",
+                                      22,
+                                      primary,
+                                    ),
+                                    Row(
+                                      children: [
+                                        txtbold("Color : ", 18),
+                                        const Icon(
+                                          Icons.circle,
+                                          color: Colors.orange,
+                                          size: 18,
+                                        ),
+                                      ],
+                                    ),
+                                    quantityfunction(index),
+                                  ],
                                 ),
                               ),
                             ],
                           ),
                         ),
                         Align(
-                          alignment: Alignment(1, -1),
+                          alignment: const Alignment(1, -1),
                           child: IconButton(
                             onPressed: () {
                               cartcontroller.cartlist.removeAt(index);
@@ -137,7 +135,7 @@ class _CartScreenState extends State<CartScreen> {
                         alignment: Alignment.topRight,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              minimumSize: Size(150, 50),
+                              minimumSize: const Size(150, 50),
                               primary: primary,
                               onPrimary: white,
                               shape: RoundedRectangleBorder(
@@ -148,9 +146,9 @@ class _CartScreenState extends State<CartScreen> {
                                 .addAll(cartcontroller.cartlist);
                             indexcontroller.updateindex(3);
                             cartcontroller.subtotalupdate();
-                            Get.to(SplashScreen());
+                            Get.to(const SplashScreen());
                           },
-                          child: Text(
+                          child: const Text(
                             "Place Order",
                             style: TextStyle(
                               fontSize: 18,
@@ -186,7 +184,7 @@ class _CartScreenState extends State<CartScreen> {
               cartcontroller.subtotalupdate();
             } else {}
           },
-          icon: Icon(Icons.remove),
+          icon: const Icon(Icons.remove),
         ),
         GetBuilder<CartController>(
           builder: (controller) {
@@ -200,7 +198,7 @@ class _CartScreenState extends State<CartScreen> {
                 controller.quantityupdate(index);
                 controller.subtotalupdate();
               },
-              icon: Icon(Icons.add),
+              icon: const Icon(Icons.add),
             );
           },
         ),
@@ -213,8 +211,8 @@ class _CartScreenState extends State<CartScreen> {
     return Container(
       height: 200,
       width: double.infinity,
-      margin: EdgeInsets.only(bottom: 20),
-      padding: EdgeInsets.all(30),
+      margin: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.all(30),
       decoration: BoxDecoration(
         color: primary,
         borderRadius: BorderRadius.circular(16),

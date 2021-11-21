@@ -13,12 +13,14 @@ class MainHomeScree extends StatelessWidget {
 
   double borderradius = 32;
 
+  MainHomeScree({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: 15),
+      margin: const EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(
         color: backgroundgray,
         borderRadius: BorderRadius.only(
@@ -29,12 +31,12 @@ class MainHomeScree extends StatelessWidget {
       child: Column(
         children: [
           brandandprod("Choose Brand"),
-          Container(
+          const SizedBox(
             height: 110,
             child: BranName(),
           ),
           brandandprod("Beats Products"),
-          ProductCard(),
+          const ProductCard(),
         ],
       ),
     );

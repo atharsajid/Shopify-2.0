@@ -53,11 +53,11 @@ class _SignUpState extends State<SignUp> {
         backgroundColor: Colors.transparent,
         body: Column(
           children: [
-            Container(
+            SizedBox(
               height: MediaQuery.of(context).size.height * 0.2,
               child: logoSlogan(name, iconimg, slogan),
             ),
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width * 0.8,
               child: Column(
                 children: [
@@ -286,14 +286,14 @@ class _SignUpState extends State<SignUp> {
   void successmsg(BuildContext context) => showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-            title: Text("Congratulations!"),
-            content: Text("Your account has been created successfuly."),
+            title: const Text("Congratulations!"),
+            content: const Text("Your account has been created successfuly."),
             actions: [
               TextButton(
                 onPressed: () {
                   Get.back();
                 },
-                child: Text("Back"),
+                child: const Text("Back"),
               ),
               TextButton(
                 onPressed: () {
@@ -301,12 +301,12 @@ class _SignUpState extends State<SignUp> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => SignIn(),
+                        builder: (context) => const SignIn(),
                       ),
                     );
                   });
                 },
-                child: Text(
+                child: const Text(
                   "Sign In",
                 ),
               ),

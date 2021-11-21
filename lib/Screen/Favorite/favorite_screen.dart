@@ -5,7 +5,6 @@ import 'package:shopify/Screen/Detailed%20Screen/detail_screen.dart';
 import 'package:shopify/Screen/Favorite/controller.dart';
 import 'package:shopify/Screen/Home%20Screen/Components/controllers.dart';
 import 'package:shopify/Screen/Home%20Screen/Models/models.dart';
-import 'package:shopify/Screen/Home%20Screen/Widgets/product_card.dart';
 
 class FavoriteScreen extends StatelessWidget {
   FavoriteScreen({Key? key}) : super(key: key);
@@ -15,7 +14,7 @@ class FavoriteScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: 15),
+      margin: const EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(
         color: backgroundgray,
         borderRadius: BorderRadius.only(
@@ -40,8 +39,8 @@ class FavCar extends StatelessWidget {
     return Expanded(
       child: Obx(
         () => GridView.builder(
-          padding: EdgeInsets.all(10),
-          physics: ScrollPhysics(parent: null),
+          padding: const EdgeInsets.all(10),
+          physics: const ScrollPhysics(parent: null),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisSpacing: 30,
             mainAxisSpacing: 30,
@@ -97,7 +96,7 @@ class ProductItemCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: EdgeInsets.only(top: 20),
+                  padding: const EdgeInsets.only(top: 20),
                   alignment: Alignment.topCenter,
                   child: Image.asset(
                     productitem.img,
@@ -105,7 +104,7 @@ class ProductItemCard extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 15, left: 10),
+                  padding: const EdgeInsets.only(top: 15, left: 10),
                   child: Text(
                     productitem.name,
                     textAlign: TextAlign.start,
@@ -116,7 +115,7 @@ class ProductItemCard extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 5, left: 10),
+                  padding: const EdgeInsets.only(top: 5, left: 10),
                   child: Text(
                     "\$${productitem.price}",
                     textAlign: TextAlign.start,
@@ -128,13 +127,13 @@ class ProductItemCard extends StatelessWidget {
                   ),
                 ),
                 Container(
-                    padding: EdgeInsets.only(left: 10),
+                    padding: const EdgeInsets.only(left: 10),
                     height: 30,
                     child: star()),
               ],
             ),
             Align(
-              alignment: Alignment(1, -1),
+              alignment: const Alignment(1, -1),
               child: IconButton(
                 onPressed: () {
                   productlist.favoritelist.removeAt(index);
@@ -156,7 +155,7 @@ class ProductItemCard extends StatelessWidget {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: 5,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (context, index) {
         return Row(

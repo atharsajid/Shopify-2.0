@@ -11,7 +11,7 @@ Color backgroundgray = const Color(0xffF3F1F8);
 List<BoxShadow> boxshadow = [
   BoxShadow(
     blurRadius: 10,
-    offset: Offset(0, 0),
+    offset: const Offset(0, 0),
     color: Colors.grey.withOpacity(0.2),
   ),
 ];
@@ -19,7 +19,7 @@ List<BoxShadow> boxshadow = [
 List<BoxShadow> boxshadow2 = [
   BoxShadow(
     blurRadius: 10,
-    offset: Offset(0, 0),
+    offset: const Offset(0, 0),
     color: Colors.grey.withOpacity(0.6),
   ),
 ];

@@ -43,7 +43,7 @@ Widget drawer() {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 20, bottom: 30),
+                margin: const EdgeInsets.only(top: 20, bottom: 30),
                 child: Text(
                   "MUHAMMAD ATHAR",
                   style: TextStyle(
@@ -57,14 +57,14 @@ Widget drawer() {
             ],
           ),
         ),
-        MenuBtn(),
+        const MenuBtn(),
       ],
     ),
   );
 }
 
 class MenuBtn extends StatefulWidget {
-  MenuBtn({Key? key}) : super(key: key);
+  const MenuBtn({Key? key}) : super(key: key);
 
   @override
   _MenuBtnState createState() => _MenuBtnState();
@@ -91,6 +91,7 @@ class _MenuBtnState extends State<MenuBtn> {
             ),
             onTap: () {
               indexcontroller.updateindex(1);
+              Get.back();
               Get.to(HomeScreen());
             },
           ),
@@ -108,6 +109,7 @@ class _MenuBtnState extends State<MenuBtn> {
             ),
             onTap: () {
               indexcontroller.updateindex(2);
+              Get.back();
               Get.to(HomeScreen());
             },
           ),
@@ -125,6 +127,7 @@ class _MenuBtnState extends State<MenuBtn> {
             ),
             onTap: () {
               indexcontroller.updateindex(3);
+              Get.back();
               Get.to(HomeScreen());
             },
           ),
@@ -142,6 +145,7 @@ class _MenuBtnState extends State<MenuBtn> {
             ),
             onTap: () {
               indexcontroller.updateindex(3);
+              Get.back();
               Get.to(HomeScreen());
             },
           ),

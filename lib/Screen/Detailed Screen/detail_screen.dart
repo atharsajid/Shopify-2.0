@@ -26,14 +26,14 @@ class DetailScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           width: double.infinity,
-          margin: EdgeInsets.symmetric(horizontal: 15),
+          margin: const EdgeInsets.symmetric(horizontal: 15),
           decoration: boxDecoration(borderradius, backgroundgray),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
                 decoration: decoration(),
-                padding: EdgeInsets.only(top: 30, bottom: 30),
+                padding: const EdgeInsets.only(top: 30, bottom: 30),
                 child: Column(
                   children: [
                     Image.asset(
@@ -41,12 +41,12 @@ class DetailScreen extends StatelessWidget {
                       height: 200,
                     ),
                     Container(
-                      padding: EdgeInsets.only(left: 10),
+                      padding: const EdgeInsets.only(left: 10),
                       height: 40,
                       child: star(),
                     ),
                     nametxt(productlist.name),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(top: 10),
                     ),
                     price(),
@@ -54,30 +54,30 @@ class DetailScreen extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(top: 10, left: 20),
+                padding: const EdgeInsets.only(top: 10, left: 20),
                 width: double.infinity,
                 decoration: boxDecoration(borderradius, white),
                 child: ListView(
                   shrinkWrap: true,
-                  physics: ScrollPhysics(parent: null),
+                  physics: const ScrollPhysics(parent: null),
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         nametxt("Color"),
                         Container(
-                          padding: EdgeInsets.only(top: 5, bottom: 5),
+                          padding: const EdgeInsets.only(top: 5, bottom: 5),
                           height: 55,
                           child: coloricon(),
                         ),
                         nametxt("Details"),
                         Text(
                           productlist.detail,
-                          style: TextStyle(fontSize: 16),
+                          style: const TextStyle(fontSize: 16),
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 0),
-                          margin: EdgeInsets.only(top: 20, bottom: 20),
+                          padding: const EdgeInsets.only(left: 0),
+                          margin: const EdgeInsets.only(top: 20, bottom: 20),
                           child: twobutton(),
                         ),
                       ],
@@ -110,7 +110,7 @@ class DetailScreen extends StatelessWidget {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: 5,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (context, index) {
         return Row(
@@ -168,13 +168,13 @@ class DetailScreen extends StatelessWidget {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       itemCount: colorlist.length,
       itemBuilder: (context, index) {
         return GetBuilder<Colorcontroller>(
           builder: (controller) {
             return Container(
-              margin: EdgeInsets.only(right: 2),
+              margin: const EdgeInsets.only(right: 2),
               height: 45,
               width: 45,
               decoration: BoxDecoration(
@@ -182,7 +182,7 @@ class DetailScreen extends StatelessWidget {
                 boxShadow: [
                   BoxShadow(
                     blurRadius: 10,
-                    offset: Offset(0, 0),
+                    offset: const Offset(0, 0),
                     color: controller.isSelected == index
                         ? Colors.grey.withOpacity(0.4)
                         : Colors.white.withOpacity(0.0),
@@ -213,7 +213,7 @@ class DetailScreen extends StatelessWidget {
       children: [
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-              minimumSize: Size(150, 50),
+              minimumSize: const Size(150, 50),
               primary: backgroundgray,
               onPrimary: Colors.black.withOpacity(0.6),
               shape: RoundedRectangleBorder(
@@ -234,7 +234,7 @@ class DetailScreen extends StatelessWidget {
             cartcontroller.subtotalupdate();
             productlist.cartAdded = true.obs;
           },
-          child: Text(
+          child: const Text(
             "Add to Cart",
             style: TextStyle(
               fontSize: 18,
@@ -244,14 +244,14 @@ class DetailScreen extends StatelessWidget {
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-              minimumSize: Size(150, 50),
+              minimumSize: const Size(150, 50),
               primary: primary,
               onPrimary: white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(32),
               )),
           onPressed: () {},
-          child: Text(
+          child: const Text(
             "Buy Now",
             style: TextStyle(
               fontSize: 18,
@@ -303,7 +303,7 @@ class DetailScreen extends StatelessWidget {
         GetX<CartController>(
           builder: (controller) {
             return Center(
-              child: controller.cartlist.length > 0
+              child: controller.cartlist.isNotEmpty
                   ? Text(
                       controller.cartlist.length.toString(),
                       style: TextStyle(
